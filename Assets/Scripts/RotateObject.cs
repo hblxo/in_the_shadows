@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 public class RotateObject : MonoBehaviour {
 	[SerializeField]
-	private float _rotSpeed = 20;
+	private float _rotSpeed = 2000;
 	[SerializeField]
 	private bool _rotationY = true;
 	
@@ -20,14 +20,15 @@ public class RotateObject : MonoBehaviour {
 	}
 
 	void OnMouseDrag() {
-		float rotX = Input.GetAxis("Mouse X") * _rotSpeed * Mathf.Deg2Rad * Time.timeScale;
-		float rotY = Input.GetAxis("Mouse Y") * _rotSpeed * Mathf.Deg2Rad * Time.timeScale;
+		var rotX = Input.GetAxis("Mouse X") * _rotSpeed * Mathf.Deg2Rad * Time.timeScale;
+		var rotY = Input.GetAxis("Mouse Y") * _rotSpeed * Mathf.Deg2Rad * Time.timeScale;
 
-		if (!Input.GetKey(KeyCode.LeftShift))
-		{
-			transform.RotateAround(Vector3.up, rotX);
-			if (_rotationY && Input.GetKey(KeyCode.LeftControl))
-				transform.RotateAround(Vector3.right, rotY);
-		}
+		if (Input.GetKey(KeyCode.LeftShift)) return;
+		if (_rotationY && Input.GetKey(KeyCode.LeftControl))
+			transform.Rotate(Vector3.right * rotY, Space.World);
+		else if (Input.GetKey(KeyCode.LeftAlt))
+			transform.Rotate(Vector3.back * rotX, Space.World);
+		else
+			transform.Rotate(Vector3.up * rotX, Space.World);
 	}
 }

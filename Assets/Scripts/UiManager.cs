@@ -1,39 +1,35 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
-	public GameManager Gm;
-	public LevelChanger Lc;
+//	public GameManager Gm;
 
 	private AudioSource _music;
 
-	private bool _panelOpen;
+	private bool _optionsPanelOpen;
 	public GameObject OptionsPanel;	
+	
 	// Use this for initialization
 	void Start ()
 	{
 		_music = GetComponent<AudioSource>();
-		_panelOpen = false;
+		_optionsPanelOpen = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex == 0)
 			OpenOptionsPanel();
 	}
 
 	public void OpenOptionsPanel()
 	{
-		_panelOpen = !_panelOpen;
-		GeneralData.PanelOpen = _panelOpen;
+		_optionsPanelOpen = !_optionsPanelOpen;
+		GeneralData.OptionsPanelOpen = _optionsPanelOpen;
 		Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-		OptionsPanel.SetActive(_panelOpen);
-	}
-
-	public void LevelChanger(int level)
-	{
-		Lc.FadeToLevel(level);
+		OptionsPanel.SetActive(_optionsPanelOpen);
 	}
 	
 	public void MusicSettings()

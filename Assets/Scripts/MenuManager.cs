@@ -9,37 +9,45 @@ public class MenuManager : MonoBehaviour
 	public GameObject[] Posters;
 	public GameObject[] Lights;
 	public Material[] Materials;
+	
 	public GameObject Trail;
-
+	public GameObject Stamp;
 	private Animator _camAnimator;
 	
-	// Use this for initialization
+	
 	void Start ()
 	{
-		Debug.Log(GeneralData.LevelToUnlock);
 		_camAnimator = Cam.GetComponent<Animator>();
-		if (Gm.AvailableLevels >= 3)
+		if (GeneralData.AvailableLevels >= 3)
 			MoveCameraOn2NdPos();
 		if (GeneralData.LevelToUnlock != 0)
 			StartCoroutine(UnlockLevel(GeneralData.LevelToUnlock));
 		SetPoster();
 	}
 	
-	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+			Gm.LevelChanger((int) GeneralData.Scenes.FirstMenu);
 	}
 	
 	public void SetPoster()
 	{
 		var i = 0;
 		
-		while (Posters.Length > i && (Gm.DevMode || Gm.AvailableLevels >= i))
+		while (Posters.Length > i && (GeneralData.DevMode || GeneralData.AvailableLevels >= i))
 		{
 			SetRenderer(i);
 			SetLight(i);
+			if (!GeneralData.DevMode && GeneralData.AvailableLevels > i)
+				SetStamp(i);
 			i++;
 		}
+	}
+
+	private void SetStamp(int i)
+	{
+		Instantiate(Stamp, Posters[i].transform);
 	}
 
 	private void SetRenderer(int i)
@@ -80,19 +88,16 @@ public class MenuManager : MonoBehaviour
 			case 3:
 				trailPos.x = 472;
 				trailPos.z = 851;
-//				trailRot.y = 188;
 				trailRot = Quaternion.Euler(0, 188, 0);
 				break;
 			case 4:
 				trailPos.x = 492;
 				trailPos.z = 848;
-//				trailRot.y = 188;
 				trailRot = Quaternion.Euler(0, 188, 0);
 				break;
 			case 5:
 				trailPos.x = 512;
 				trailPos.z = 845;
-//				trailRot.y = 188;
 				trailRot = Quaternion.Euler(0, 188, 0);
 				break;
 		}

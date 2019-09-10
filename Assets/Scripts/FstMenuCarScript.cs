@@ -21,7 +21,7 @@ public class FstMenuCarScript : MonoBehaviour
 		var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit Hit;
         
-		if (GeneralData.PanelOpen)
+		if (GeneralData.OptionsPanelOpen)
 			return;
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -35,7 +35,7 @@ public class FstMenuCarScript : MonoBehaviour
 
 	private void OnMouseEnter()
 	{
-		if (GeneralData.PanelOpen)
+		if (GeneralData.OptionsPanelOpen)
 			return;
 		foreach (var s in Spots)
 		{

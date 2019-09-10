@@ -6,12 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	private static bool _devMode;
-	private int _availableLevels;
-	public EndOfLevelAnimation EndOfLevelAnimation;
 	private static int _lastLevel;
-	public UiManager Ui;
 	
+	public UiManager Ui;
+	public LevelChanger Lc;
+
 	void Start ()
 	{
 //		SaveLevel(0);
@@ -21,17 +20,16 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 		if (PlayerPrefs.HasKey("DevMode"))
-			_devMode = (PlayerPrefs.GetInt("DevMode") != 0);
+			GeneralData.DevMode = (PlayerPrefs.GetInt("DevMode") != 0);
 		else
-			_devMode = false;
-		_availableLevels = PlayerPrefs.HasKey("Current Level") ? PlayerPrefs.GetInt("Current Level") : 0;
+			GeneralData.DevMode = false;
+		GeneralData.AvailableLevels = PlayerPrefs.HasKey("Current Level") ? PlayerPrefs.GetInt("Current Level") : 0;
 	}
 
 	void Update () {
-		
 	}
 
-	static void SaveLevel (int level) {
+	public void SaveLevel (int level) {
 		if (PlayerPrefs.HasKey("Current Level"))
 			PlayerPrefs.DeleteKey("Current Level");
         PlayerPrefs.SetInt ("Current Level", level);
@@ -40,7 +38,7 @@ public class GameManager : MonoBehaviour
 
 	public void ActiveDevMode()
 	{
-		_devMode = true;
+		GeneralData.DevMode = true;
 		if (PlayerPrefs.HasKey("DevMode"))
 			PlayerPrefs.DeleteKey("DevMode");
 		PlayerPrefs.SetInt("DevMode", 1);
@@ -49,28 +47,11 @@ public class GameManager : MonoBehaviour
 	
 	public void DisableDevMode()
 	{
-		_devMode = false;
+		GeneralData.DevMode = false;
 		if (PlayerPrefs.HasKey("DevMode"))
 			PlayerPrefs.DeleteKey("DevMode");
 		PlayerPrefs.SetInt("DevMode", 0);
 		PlayerPrefs.Save();
-	}
-
-	public IEnumerator ValidateLevel(int level)
-	{
-		Time.timeScale = 0;
-		EndOfLevelAnimation.Congrats();
-		if (!_devMode && level > _availableLevels)
-		{
-			SaveLevel(level);
-			GeneralData.LevelToUnlock = level;
-		}
-		else
-			GeneralData.LevelToUnlock = 0;
-		yield return new WaitForSecondsRealtime(5);
-		Time.timeScale = 1;
-		Ui.LevelChanger(1);
-//		SceneManager.LoadScene("Menu");
 	}
 
 	public void ResetProgression()
@@ -78,13 +59,8 @@ public class GameManager : MonoBehaviour
 		SaveLevel(0);
 	}
 
-	public bool DevMode
+	public void LevelChanger(int level)
 	{
-		get { return _devMode; }
-	}
-
-	public int AvailableLevels
-	{
-		get { return _availableLevels; }
+		Lc.FadeToLevel(level);
 	}
 }

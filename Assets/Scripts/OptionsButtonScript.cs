@@ -5,17 +5,11 @@ public class OptionsButtonScript : MonoBehaviour {
 
 	public Text MusicText;
 	public Text ControlText;
-	
-	// Use this for initialization
+
 	void Start ()
 	{
 		SetMusicButton();
 		SetControlButton();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
 	}
 
 	public void SetMusicButton()
