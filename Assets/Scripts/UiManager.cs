@@ -44,10 +44,7 @@ public class UiManager : MonoBehaviour
 		else
 			set = true;
 		PlayerPrefs.SetInt("Music Settings", set ? 1 : 0);
-		if (set)
-			_music.Pause();
-		else
-			_music.UnPause();
+		AudioListener.volume = set ? 0f : 1f;
 		PlayerPrefs.Save();
 	}	
 	
