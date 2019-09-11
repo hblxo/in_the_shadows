@@ -28,6 +28,12 @@ public class LevelManager : MonoBehaviour
 	{
 		_helpPanelOpen = !_helpPanelOpen;
 		HelpPanel.SetActive(_helpPanelOpen);
+		//TODO : n'afficher que les éléments utiles du menu d'aide
+	}
+
+	private void OpenMovePanel()
+	{
+		transform.GetChild(0).GetChild(0).gameObject.SetActive(_helpPanelOpen);		
 	}
 }
 
