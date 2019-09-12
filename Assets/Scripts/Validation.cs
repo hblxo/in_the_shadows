@@ -54,6 +54,7 @@ public class Validation : MonoBehaviour {
 	{
 		Time.timeScale = 0;
 		GodModBtn.SetActive(false);
+		GodMod();
 		EndOfLevelAnimation.Congrats();
 		if (!GeneralData.DevMode && level > GeneralData.AvailableLevels)
 		{
