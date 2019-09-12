@@ -10,6 +10,7 @@ public class Validation : MonoBehaviour {
 	private GameObject[] _children;
 	private bool _fireworksStarted = false;
 	public EndOfLevelAnimation EndOfLevelAnimation;
+	public GameObject GodModBtn;
 	
 	public GameObject EndPanel;
 	private bool _endPanelOpen = false;
@@ -17,6 +18,8 @@ public class Validation : MonoBehaviour {
 	void Start ()
 	{
 		_children = GameObject.FindGameObjectsWithTag("ValidObject");
+//		if (GeneralData.DevMode)
+		GodModBtn.SetActive(GeneralData.DevMode);
 	}
 	
 	void Update()
@@ -32,9 +35,12 @@ public class Validation : MonoBehaviour {
 		_fireworksStarted = true;
 	}
 
-	public void TEMPORARY()
+	public void GodMod()
 	{
-		StartCoroutine(ValidateLevel(SceneManager.GetActiveScene().buildIndex - 1));		
+		foreach (var child in _children)
+		{
+			child.GetComponent<ItemToCheck>().CreateAnim();
+		}
 	}
 
 	public void OpenEndPanel()
@@ -47,6 +53,7 @@ public class Validation : MonoBehaviour {
 	private IEnumerator ValidateLevel(int level)
 	{
 		Time.timeScale = 0;
+		GodModBtn.SetActive(false);
 		EndOfLevelAnimation.Congrats();
 		if (!GeneralData.DevMode && level > GeneralData.AvailableLevels)
 		{

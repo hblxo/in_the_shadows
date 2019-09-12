@@ -6,8 +6,7 @@ using UnityEngine.Serialization;
 public class RotateObject : MonoBehaviour {
 	[SerializeField]
 	private float _rotSpeed = 2000;
-	[SerializeField]
-	private bool _rotationY = true;
+	public bool RotationY = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -24,7 +23,7 @@ public class RotateObject : MonoBehaviour {
 		var rotY = Input.GetAxis("Mouse Y") * _rotSpeed * Mathf.Deg2Rad * Time.timeScale;
 
 		if (Input.GetKey(KeyCode.LeftShift)) return;
-		if (_rotationY && Input.GetKey(KeyCode.LeftControl))
+		if (RotationY && Input.GetKey(KeyCode.LeftControl))
 			transform.Rotate(Vector3.right * rotY, Space.World);
 		else if (Input.GetKey(KeyCode.LeftAlt))
 			transform.Rotate(Vector3.back * rotX, Space.World);
