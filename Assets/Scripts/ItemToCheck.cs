@@ -17,9 +17,11 @@ public class ItemToCheck : MonoBehaviour
 
 
 	private bool _rotX;
+	private bool _move;
 	// Use this for initialization
 	void Start()
 	{
+		_move = GetComponent<MoveObject>().CanMove;
 		_rotX = GetComponent<RotateObject>().RotationY;
 	}
 	
@@ -37,9 +39,16 @@ public class ItemToCheck : MonoBehaviour
 	public void CreateAnim ()
 	{
 		var anim = GetComponent<Animation>();
-		AnimationClip clip = new AnimationClip();
-		clip.legacy = true;
+		var clip = new AnimationClip {legacy = true};
 
+		if (_move)
+		{
+			var moveX = AnimationCurve.Linear(0f, transform.localPosition.x, 1f, 0.0f);
+			var moveY = AnimationCurve.Linear(0f, transform.localPosition.y, 1f, 0.0f);
+			clip.SetCurve("", typeof(Transform), "localPosition.x", moveX);
+			clip.SetCurve("", typeof(Transform), "localPosition.y", moveY);
+		}
+		
 		var rotateX = AnimationCurve.Linear(0f, transform.localEulerAngles.x, 1f, 0.0f);
 		var rotateY = AnimationCurve.Linear(0f, transform.localEulerAngles.y, 1f, 0.0f);
 		if (_rotX)
@@ -47,10 +56,9 @@ public class ItemToCheck : MonoBehaviour
 			var rotateZ = AnimationCurve.Linear(0f, transform.localEulerAngles.z, 1f, 0.0f);
 			clip.SetCurve("", typeof(Transform), "localEulerAngles.z", rotateZ);
 		}
-
 		clip.SetCurve("", typeof(Transform), "localEulerAngles.x", rotateX);
 		clip.SetCurve("", typeof(Transform), "localEulerAngles.y", rotateY);
-		anim.AddClip(clip, "test");
-		anim.Play("test");
+		anim.AddClip(clip, "rotation");
+		anim.Play("rotation");
 	}
 }
