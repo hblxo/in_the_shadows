@@ -10,11 +10,11 @@ public static class GeneralData
     public enum MovieNames
     {
         [Description("Alice in Wonderland")]Alice,
+        [Description("101 Dalmatians")]Dalmatians,
         [Description("Dumbo")]Dumbo,
-        [Description("Treasure Planet")]Planet,
-        [Description("The Hitchhiker's Guide to the Galaxy")]H2G2,
         [Description("Hook")]Hook,
-        [Description("")]ToDefine,
+        [Description("The Hitchhiker's Guide to the Galaxy")]H2G2,
+        [Description("Treasure Planet")]Planet,
     }
     
     public static int LevelToUnlock { get; set; }

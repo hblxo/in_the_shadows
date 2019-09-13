@@ -27,5 +27,6 @@ EditorBuildSettings:
     path: Assets/Sandbox/hbouchet/Scenes/TEST_lvl5.unity
     guid: a03158f599dcc436fa8465543fc8e440
   - enabled: 1
-    path: Assets/Sandbox/hbouchet/Scenes/TEST_lvl6.unity
+    path: Assets/Sandbox/hbouchet/Scenes/4_Level_Hook.unity
     guid: 28ff8c65bc7af42d9a4d253763a0b326
+  m_configObjects: {}
