@@ -11,7 +11,7 @@ using Object = System.Object;
 public class ItemToCheck : MonoBehaviour
 {
 	[SerializeField]
-	private float _posDiff = 0.1f;
+	private float _posDiff = 4f;
 	[SerializeField]
 	private float _rotDiff = 15f;
 
@@ -32,8 +32,11 @@ public class ItemToCheck : MonoBehaviour
 	
 	public bool IsValid()
 	{
-		return Mathf.Abs(Vector3.Distance(transform.localPosition, new Vector3(0f, 0f, 0f))) < _posDiff
-		       && Mathf.Abs(Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f))) < _rotDiff;
+//		var dist = Vector3.Distance(transform.localPosition, new Vector3(0f, 0f, 0f));
+//		Debug.Log(transform.name + " - pod : " + dist + " -- rot : " + Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f)) % 360);
+		return Vector3.Distance(transform.localPosition, new Vector3(0f, 0f, 0f)) < _posDiff
+		       && (Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f)) % 360 < _rotDiff
+		           || (Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f)) % 360) > 360 - _rotDiff);
 	}
 	
 	public void CreateAnim ()
