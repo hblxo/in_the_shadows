@@ -5,7 +5,7 @@ public class UiManager : MonoBehaviour
 {
 //	public GameManager Gm;
 
-	private AudioSource _music;
+//	private AudioSource _music;
 
 	private bool _optionsPanelOpen;
 	public GameObject OptionsPanel;	
@@ -13,7 +13,7 @@ public class UiManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		_music = GetComponent<AudioSource>();
+//		_music = GetComponent<AudioSource>();
 		_optionsPanelOpen = false;
 	}
 	
