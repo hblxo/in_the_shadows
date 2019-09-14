@@ -10,10 +10,8 @@ using Object = System.Object;
 
 public class ItemToCheck : MonoBehaviour
 {
-	[SerializeField]
-	private float _posDiff = 4f;
-	[SerializeField]
-	private float _rotDiff = 15f;
+	public float PosDiff = 4f;
+	public float RotDiff = 15f;
 
 
 	private bool _rotX;
@@ -34,9 +32,10 @@ public class ItemToCheck : MonoBehaviour
 	{
 //		var dist = Vector3.Distance(transform.localPosition, new Vector3(0f, 0f, 0f));
 //		Debug.Log(transform.name + " - pod : " + dist + " -- rot : " + Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f)) % 360);
-		return Vector3.Distance(transform.localPosition, new Vector3(0f, 0f, 0f)) < _posDiff
-		       && (Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f)) % 360 < _rotDiff
-		           || (Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f)) % 360) > 360 - _rotDiff);
+//		return Vector3.Distance(transform.localPosition, new Vector3(0f, 0f, 0f)) < _posDiff
+//		       && (Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f)) % 360 < _rotDiff
+//		           || (Vector3.Distance(transform.localEulerAngles, new Vector3(0f, 0f, 0f)) % 360) > 360 - _rotDiff);
+		return (RotCompare());//) && Vector3.Distance(transform.localPosition, new Vector3(0f, 0f, 0f)) < PosDiff);
 	}
 	
 	public void CreateAnim ()
@@ -63,5 +62,12 @@ public class ItemToCheck : MonoBehaviour
 		clip.SetCurve("", typeof(Transform), "localEulerAngles.y", rotateY);
 		anim.AddClip(clip, "rotation");
 		anim.Play("rotation");
+	}
+
+	private bool RotCompare()
+	{
+		if (transform.localEulerAngles.x >= RotDiff || transform.localEulerAngles.y >= RotDiff ||
+		    transform.localEulerAngles.z >= RotDiff) return false;
+		return true;
 	}
 }
