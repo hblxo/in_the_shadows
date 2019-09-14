@@ -18,7 +18,6 @@ public class Validation : MonoBehaviour {
 	void Start ()
 	{
 		_children = GameObject.FindGameObjectsWithTag("ValidObject");
-//		if (GeneralData.DevMode)
 		GodModBtn.SetActive(GeneralData.DevMode);
 	}
 	
@@ -46,7 +45,6 @@ public class Validation : MonoBehaviour {
 	public void OpenEndPanel()
 	{
 		_endPanelOpen = !_endPanelOpen;
-//		GeneralData.EndPanelOpen = _endPanelOpen;
 		EndPanel.SetActive(_endPanelOpen);
 	}
 
