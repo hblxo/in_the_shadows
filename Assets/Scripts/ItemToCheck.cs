@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Object = System.Object;
@@ -13,7 +14,8 @@ public class ItemToCheck : MonoBehaviour
 	public float PosDiff = 4f;
 	public float RotDiff = 15f;
 
-
+	public bool OtherValues = false;
+	public Vector3[] Values;
 	private bool _rotX;
 	private bool _move;
 	// Use this for initialization
@@ -64,8 +66,19 @@ public class ItemToCheck : MonoBehaviour
 		Quaternion local = Quaternion.Euler(transform.localEulerAngles);
 		Quaternion valid = Quaternion.Euler(0f, 0f, 0f);
 		float angle = Quaternion.Angle(local, valid);
-		if (Mathf.Abs(angle) > RotDiff)
-			return false;
-		return true;
+
+		if (!OtherValues) return !(Mathf.Abs(angle) > RotDiff);
+		foreach (var value in Values)
+		{
+			var oValid = Quaternion.Euler(value);
+			var oAngle = Quaternion.Angle(local, oValid);
+			Debug.Log("Value - Angle : " + oAngle);
+			if (Mathf.Abs(oAngle) <= RotDiff)
+			{
+				return true;
+			}
+		}
+		Debug.Log("Origin - Angle : " + angle);
+		return !(Mathf.Abs(angle) > RotDiff);
 	}
 }
