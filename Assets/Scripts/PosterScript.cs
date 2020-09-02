@@ -26,7 +26,8 @@ public class PosterScript : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		if (GeneralData.DevMode || GeneralData.AvailableLevels >= transform.GetSiblingIndex())
+//	    Debug.Log(Level + " - " + GeneralData.AvailableLevels);
+		if (GeneralData.DevMode || GeneralData.AvailableLevels + 1 >= Level - 1)//transform.GetSiblingIndex())
 			Gm.LevelChanger(Level);
 	}
 }

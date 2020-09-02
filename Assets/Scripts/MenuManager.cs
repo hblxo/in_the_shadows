@@ -74,7 +74,8 @@ public class MenuManager : MonoBehaviour
 	{
 		var trailPos = new Vector3(0f, 59f, 0f);
 		var trailRot = new Quaternion(0f, 0f, 0f, 0f);
-		yield return new WaitForSeconds(4);
+		var timeDelay = (level < 3) ? 1 : 4;
+		yield return new WaitForSeconds(timeDelay);
 		switch (level)
 		{
 			case 1:
@@ -106,9 +107,3 @@ public class MenuManager : MonoBehaviour
 		Destroy(clone, 4f);
 	}
 }
-
-
-//TODO : if level deja fait (donc < level save)
-//TODO : afficher "SOLD OUT"
-//TODO : SOLD OUT si devmode ???
-

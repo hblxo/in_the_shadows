@@ -72,13 +72,11 @@ public class ItemToCheck : MonoBehaviour
 		{
 			var oValid = Quaternion.Euler(value);
 			var oAngle = Quaternion.Angle(local, oValid);
-			Debug.Log("Value - Angle : " + oAngle);
+//			Debug.Log("Value - Angle : " + oAngle);
 			if (Mathf.Abs(oAngle) <= RotDiff)
-			{
 				return true;
-			}
 		}
-		Debug.Log("Origin - Angle : " + angle);
+//		Debug.Log("Origin - Angle : " + angle);
 		return !(Mathf.Abs(angle) > RotDiff);
 	}
 }
