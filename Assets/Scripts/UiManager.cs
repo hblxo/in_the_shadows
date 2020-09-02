@@ -15,6 +15,7 @@ public class UiManager : MonoBehaviour
 	{
 //		_music = GetComponent<AudioSource>();
 		_optionsPanelOpen = false;
+		MusicPlay();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +31,17 @@ public class UiManager : MonoBehaviour
 		GeneralData.OptionsPanelOpen = _optionsPanelOpen;
 		Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 		OptionsPanel.SetActive(_optionsPanelOpen);
+	}
+	
+	public void MusicPlay()
+	{
+		bool set;
+
+		if (PlayerPrefs.HasKey("Music Settings"))
+			set = (PlayerPrefs.GetInt("Music Settings") == 1);
+		else
+			set = false;
+		AudioListener.volume = set ? 0f : 1f;
 	}
 	
 	public void MusicSettings()
