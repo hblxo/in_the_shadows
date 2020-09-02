@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
+        Screen.SetResolution(1500, 800, false);
 		if (PlayerPrefs.HasKey("DevMode"))
 			GeneralData.DevMode = (PlayerPrefs.GetInt("DevMode") != 0);
 		else
